@@ -14,6 +14,10 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({ label, href, icon: Ico
       <div className="h-14 w-14 hover:bg-slate-300 hover:bg-opacity-10 lg:hidden relative flex items-center justify-center p-4 rounded-full cursor-pointer">
         <Icon size={28} color="white" />
       </div>
+      <div className="lg:flex hover:bg-slate-300 hover:bg-opacity-10 relative items-center hidden gap-4 p-4 rounded-full cursor-pointer">
+        <Icon size={24} color="white" />
+      </div>
+      <p className="lg:block hidden text-xl text-white">{label}</p>
     </div>
   );
 };
