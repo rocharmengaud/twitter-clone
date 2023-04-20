@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  // id: The primary key for the User model. It is defined as a string and annotated with @id to indicate that it is the primary key.
+  // @default(auto()) means the value for this field is automatically generated.
+  // @map("_id") indicates that this field should be mapped to the _id field in the MongoDB database. 
+  // @db.ObjectId: This specifies that the field should be stored as an array of ObjectIds in the database.
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  // A string field representing the user's name.
+  name String?
+  // A string field representing the user's username. The @unique attribute specifies that this field should be unique.
+  username String? @unique
+  // A string field representing the user's bio.
+  bio String?
+  // A string field representing the user's email address. The @unique attribute specifies that this field should be unique.
+  email String? @unique
+  // A datetime field representing the date and time at which the user's email address was verified.
+  emailVerified DateTime?
+  // A string field representing the URL of the user's profile image.
+  image String?
+  coverImage String?
+  profileImage String?
+  // A string field representing the user's hashed password.
+  hashedPassword String?
+  // A datetime field representing the date and time at which the user was created. 
+  // @default(now()) attribute specifies that the value for this field should be set to the current datetime when a new user is created.
+  createdAt DateTime @default(now())
+  // A datetime field representing the date and time at which the user was last updated. 
+  // @updatedAt attribute specifies that this field should be automatically updated whenever the user is updated.
+  updatedAt DateTime @updatedAt
+  // An array of strings representing the IDs of the users that the user is following.
+  // @db.ObjectId attribute specifies that the values in this array should be MongoDB ObjectIds.
+  followingIds String[] @db.ObjectId
+  // A boolean field representing whether the user has any notifications.
+  hasNotification Boolean?
+
+  // A one-to-many relation to the Post model, representing the posts created by the user.
+  posts Post[]
+  comments Comment[]
+  notifications Notification[]
+}
+
+model Post {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  body String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId String @db.ObjectId
+  // This is a string array field that represents the users who have liked the post. 
+  likedIds String[] @db.ObjectId
+
+
+// user: This is a relation field that represents the user who created the post. It has three Prisma attributes:
+// @relation: This specifies that this field is a relation to another model.
+// fields : [userId]: This specifies that the relation is based on the userId field in this model.
+// references: [id]: This specifies that the relation is based on the id field in the User model.
+// onDelete: Cascade: This specifies that if the referenced User model is deleted, all the related Post models should also be deleted.
+  user User @relation(fields : [userId], references: [id], onDelete: Cascade)
+
+// Relation field that represents the comments on the post. It has no attributes, but it is related to the Comment model.
+  comments Comment[]
+}
+
+model Comment {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  body String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId String @db.ObjectId
+  postId String @db.ObjectId
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  body String
+  userId String @db.ObjectId
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+
