@@ -17,6 +17,7 @@ export const RegisterModal = () => {
   const [username, setUsername] = useState('');
   const [isLoading, setisLoading] = useState(false);
 
+  // POST request to the /api/register endpoint, then signs the user in using next-auth and closes the modal window.
   const onSubmit = useCallback(async () => {
     try {
       setisLoading(true);

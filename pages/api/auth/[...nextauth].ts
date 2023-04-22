@@ -5,6 +5,10 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 
 import prisma from '@/libs/prismadb';
 
+// This is the main configuration file for the next-auth library.
+// Sets up a PrismaAdapter to connect next-auth to the Prisma database, then sets up a CredentialsProvider to allow users to sign in using an email address & password.
+// It also includes configuration options for other authentication providers, such as Google and Facebook.
+
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [

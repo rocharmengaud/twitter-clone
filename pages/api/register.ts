@@ -3,6 +3,10 @@ import bcrypt from 'bcrypt';
 
 import prisma from '@/libs/prismadb';
 
+// This is an API route that handles user registration.
+// It expects a POST request with an object containing the user's email, username, name, and password.
+// Using bcrypt library to hash the password before creating a new user in the Prisma database.
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return res.status(405).end();
