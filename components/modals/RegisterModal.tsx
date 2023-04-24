@@ -18,6 +18,7 @@ export const RegisterModal = () => {
   const [isLoading, setisLoading] = useState(false);
 
   // POST request to the /api/register endpoint, then signs the user in using next-auth and closes the modal window.
+  // The useCallback hook is used to memoize the function and prevent unnecessary re-renders.
   const onSubmit = useCallback(async () => {
     try {
       setisLoading(true);
