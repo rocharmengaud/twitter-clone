@@ -4,11 +4,12 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 
 import prisma from '@/libs/prismadb';
+import { AuthOptions } from 'next-auth';
 
 // This is the main configuration file for the next-auth library.
 // Sets up a PrismaAdapter to connect next-auth to the Prisma database, then sets up a CredentialsProvider to allow users to sign in using an email address & password.
 
-export default NextAuth({
+export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
@@ -51,4 +52,6 @@ export default NextAuth({
     secret: process.env.NEXTAUTH_JWT_SECRET,
   },
   secret: process.env.NEXTAUTH_SECRET,
-});
+};
+
+export default NextAuth(authOptions);

@@ -4,6 +4,7 @@ import React, { useMemo } from 'react';
 import { format } from 'date-fns';
 import { Button } from '../Button';
 import { BiCalendar } from 'react-icons/bi';
+import { useEditModal } from '@/hooks/useEditModal';
 
 interface UserBioProps {
   userId: string;
@@ -13,6 +14,10 @@ export const UserBio: React.FC<UserBioProps> = ({ userId }) => {
   const { data: currentUser } = useCurrentUser();
   const { data: fetchedUser } = useUser(userId);
 
+  const editModal = useEditModal();
+
+  // useMemo is a React hook used to memoize a value.
+  // Using useCallback here would not be appropriate here because it is used to memoize a function rather than a value.
   const createdAt = useMemo(() => {
     if (!fetchedUser?.createdAt) {
       return null;
@@ -24,7 +29,11 @@ export const UserBio: React.FC<UserBioProps> = ({ userId }) => {
   return (
     <div className="border-b-[1px] border-neutral-800 pb-4">
       <div className="flex justify-end p-2">
-        {currentUser?.id === userId ? <Button secondary label="Edit" onClick={() => {}} /> : <Button onClick={() => {}} label="Follow" secondary />}
+        {currentUser?.id === userId ? (
+          <Button secondary label="Edit" onClick={editModal.onOpen} />
+        ) : (
+          <Button onClick={() => {}} label="Follow" secondary />
+        )}
       </div>
       <div className="px-4 mt-8">
         <div className="flex flex-col">
