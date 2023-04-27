@@ -24,6 +24,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, label, value
       const file = files[0];
       const reader = new FileReader();
 
+      // This onload event listener is attached to the FileReader object, which will be triggered when the file has been read successfully.
       reader.onload = (event: any) => {
         setBase64(event.target.result);
         handleChange(event.target.result);
@@ -50,6 +51,8 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, label, value
         className: 'w-full p-4 text-white text-center border-2 border-dotted rounded-md border-neutral-700 cursor-pointer',
       })}
     >
+      {/* This line uses the spread operator (...) to pass all of the properties and event handlers returned by the getInputProps 
+      function as props to the input element. This is used to capture the file upload when the user selects or drops a file. */}
       <input {...getInputProps()} />
       {base64 ? (
         <div className="flex items-center justify-center">
