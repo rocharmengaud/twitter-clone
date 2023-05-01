@@ -32,14 +32,14 @@ const useLike = ({ postId, userId }: { postId: string; userId?: string }) => {
       if (hasLiked) {
         request = () => axios.delete('/api/like', { params: { postId } });
       } else {
-        request = () => axios.post('api/like', { postId });
+        request = () => axios.post('/api/like', { postId });
       }
 
       await request();
       mutateFetchedPost();
       mutateFetchedPosts();
 
-      toast.success('Successfully liked');
+      toast.success('Success');
     } catch (error) {
       toast.error('Something went wrong');
       console.log(error);
