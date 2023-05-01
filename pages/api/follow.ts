@@ -8,8 +8,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    // Axios treats DELETE and POST differently
+    // Axios treats DELETE(query) and POST(body) differently
     const userId = req.method === 'POST' ? req.body.userId : req.query.userId;
+    // Calls the serverAuth function to authenticate the request then, extract the currentUser object
     const { currentUser } = await serverAuth(req, res);
 
     if (!userId || typeof userId !== 'string') {

@@ -11,6 +11,9 @@ const useFollow = (userId: string) => {
 
   const loginModal = useLoginModal();
 
+  // Declare a variable isFollowing by using the useMemo hook to memoize the isFollowing state.
+  // This variable checks whether the current user follows the user with the given userId
+  // by checking if the userId is included in the current user's followingIds list.
   const isFollowing = useMemo(() => {
     const list = currentUser?.followingIds || [];
 
@@ -26,7 +29,7 @@ const useFollow = (userId: string) => {
       let request;
 
       if (isFollowing) {
-        // Axios treats DELETE and POST differently
+        // Axios treats DELETE(query) and POST(body) differently
         request = () => axios.delete('/api/follow', { params: { userId } });
       } else {
         request = () => axios.post('/api/follow', { userId });
