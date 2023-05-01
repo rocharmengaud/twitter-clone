@@ -27,6 +27,8 @@ const UserView = () => {
       <Header label={fetchedUser?.name} showBackArrow />
       <UserHero userId={userId as string} />
       <UserBio userId={userId as string} />
+      {/* For PostFeed we put the userId so we can only see tweets posted by the user on his own page */}
+      {/* if we didn't we would have every post of every user */}
       <PostFeed userId={userId as string} />
     </>
   );

@@ -7,12 +7,14 @@ import { Avatar } from '../Avatar';
 import { AiOutlineHeart, AiOutlineMessage } from 'react-icons/ai';
 
 interface PostItemProps {
+  // data = posts
   data: Record<string, any>;
   userId?: string;
 }
 
 // data is our post
 export const PostItem: React.FC<PostItemProps> = ({ data, userId }) => {
+  console.log(data);
   const router = useRouter();
   const loginModal = useLoginModal();
 
