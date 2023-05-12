@@ -69,7 +69,7 @@ export const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) =>
         </div>
       ) : (
         <div className="py-8">
-          <h1 className="mb-4 text-2xl font-bold text-center text-white">Welcome to twitter-clone</h1>
+          <h1 className="mb-4 text-2xl font-bold text-center text-white">Welcome to twittur-clone</h1>
           <div className="flex flex-row items-center justify-center gap-4">
             <Button label="Login" onClick={loginModal.onOpen} />
             <Button label="Register" onClick={registerModal.onOpen} secondary />
