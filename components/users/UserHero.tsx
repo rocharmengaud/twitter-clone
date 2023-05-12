@@ -9,6 +9,7 @@ interface UserHeroProps {
 
 export const UserHero: React.FC<UserHeroProps> = ({ userId }) => {
   const { data: fetchedUser } = useUser(userId);
+  console.log(fetchedUser);
 
   return (
     <div>
